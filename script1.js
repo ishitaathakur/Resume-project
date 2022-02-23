@@ -19,3 +19,41 @@ function scrollvertically(targetsection){
     }
     window.scrollBy(0,50);
 }
+var progressbar=document.querySelectorAll('.skill1 > div');
+var skillcont=document.getElementById('skillani');
+window.addEventListener('scroll',checkScroll);
+var animadone=false;
+function intialisebars(){
+    for(let b of progressbar){
+        b.style.width=0+'%';
+    }
+}
+intialisebars();
+function fillbars(){
+    for(let b of progressbar){
+        let finalani=b.getAttribute('barwidth');
+        let cur=0;
+        var interval=setInterval(function(){
+        if(cur> finalani){
+            clearInterval(interval);
+            return;
+        }
+        cur++;
+        b.style.width=cur+'%';
+    },15);
+    }
+}
+function checkScroll(){
+     var point=skillcont.getBoundingClientRect();
+     if(!animadone && point.top < window.innerHeight){
+        animadone=true;
+        fillbars();
+     }
+     else if(point.top>window.innerHeight){
+        animadone=false;
+         intialisebars();
+     }
+
+}
+
+
